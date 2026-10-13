@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Студенчество: СССР и Россия</title>
+<meta name="description" content="Интерактивный сайт: пройди «сессию» из пяти заданий и узнай, чем жизнь советского студента отличалась от жизни современного.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Студенчество: СССР и Россия — сдай сессию">
+<meta property="og:description" content="Пять интерактивных заданий о студентах двух эпох: история, анкета, стипендия, викторина и итоговый зачёт.">
+<meta name="theme-color" content="#faf9f6">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234364f7'/%3E%3Cstop offset='.55' stop-color='%23a855f7'/%3E%3Cstop offset='1' stop-color='%23ef3f6b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M32 16 10 27l22 11 22-11z' fill='%23fff'/%3E%3Cpath d='M19 32v9c0 4 6 7 13 7s13-3 13-7v-9l-13 6.5z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#faf9f6; --card:#ffffff; --soft:#f2f1ee; --soft-2:#e9e7e2;
+  --ink:#141414; --ink-2:#3d3d3d; --muted:#7a7a7a; --line:#e7e5e0;
+  --u:#ef3f6b; --u-soft:#ffe6ee;      /* СССР */
+  --r:#4364f7; --r-soft:#e6ebff;      /* Россия */
+  --v:#a855f7; --v-soft:#f3e8ff;
+  --ok:#16a34a; --ok-soft:#dcfce7;
+  --grad:linear-gradient(100deg,#4364f7 0%,#a855f7 50%,#ef3f6b 100%);
+  --sans:"Inter","SF Pro Display",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+  --sh:0 1px 2px rgba(20,20,20,.04),0 8px 28px rgba(20,20,20,.07);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-text-size-adjust:100%;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3{line-height:1.08;margin:0;letter-spacing:-.035em;font-weight:800;text-wrap:balance}
+p{margin:0 0 1em}
+button{font:inherit;cursor:pointer;color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.muted{color:var(--muted)} .small{font-size:.86rem}
+.nowrap{white-space:nowrap}
+.g-u,.g-mid,.g-r{-webkit-background-clip:text;background-clip:text;color:transparent}
+.g-u{background-image:linear-gradient(100deg,#d9183f 0%,#ef3f6b 55%,#ff7a59 100%)}
+.g-mid{background-image:linear-gradient(90deg,#ef3f6b,#4364f7)}
+.g-r{background-image:linear-gradient(100deg,#2f4de0 0%,#4364f7 55%,#6c8cff 100%)}
+.gtext{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,249,246,.8);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px)}
+.nav .wrap{display:flex;align-items:center;gap:24px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.03em;font-size:1.15rem;text-decoration:none;color:var(--ink)}
+.logo i{width:26px;height:26px;border-radius:9px;background:var(--grad);display:block}
+.nav .links{display:flex;gap:4px;margin-left:12px}
+.nav .links a{color:var(--ink-2);text-decoration:none;padding:8px 12px;border-radius:999px;font-weight:500;font-size:.95rem}
+.nav .links a:hover{background:var(--soft)}
+.zbtn{margin-left:auto;display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:0;border-radius:12px;padding:9px 14px 9px 10px;font-weight:600;font-size:.92rem;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.zbtn .ring{width:24px;height:24px;border-radius:50%;background:conic-gradient(#fff calc(var(--p)*1%),rgba(255,255,255,.22) 0);display:grid;place-items:center}
+.zbtn .ring b{width:16px;height:16px;border-radius:50%;background:var(--ink);font-size:.62rem;display:grid;place-items:center}
+.zbtn.bump{animation:bump .55s ease}
+@keyframes bump{35%{transform:scale(1.1)}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;padding:9vh 0 0;min-height:calc(100vh - 64px);display:flex;flex-direction:column}
+.mesh{position:absolute;inset:0;z-index:0;pointer-events:none}
+.mesh:before,.mesh:after{content:"";position:absolute;inset:-10% -20%}
+.mesh:before{background:
+  radial-gradient(60% 45% at 50% 120%,#ff3f86 0%,rgba(255,63,134,0) 70%),
+  radial-gradient(45% 40% at 12% 95%,#f472d0 0%,rgba(244,114,208,0) 70%),
+  radial-gradient(45% 40% at 88% 95%,#f472d0 0%,rgba(244,114,208,0) 70%),
+  radial-gradient(70% 45% at 50% 78%,#7c6cf2 0%,rgba(124,108,242,0) 70%),
+  radial-gradient(55% 40% at 0% 62%,#4f7bff 0%,rgba(79,123,255,0) 70%),
+  radial-gradient(55% 40% at 100% 62%,#4f7bff 0%,rgba(79,123,255,0) 70%);
+  filter:blur(10px) saturate(1.25);animation:drift 18s ease-in-out infinite alternate}
+.mesh:after{background:radial-gradient(75% 50% at 50% 22%,var(--bg) 38%,rgba(250,249,246,0) 70%)}
+.mesh{-webkit-mask-image:linear-gradient(#000 85%,transparent);mask-image:linear-gradient(#000 85%,transparent)}
+@keyframes drift{from{transform:translate3d(-2%,0,0) scale(1)}to{transform:translate3d(2%,-3%,0) scale(1.06)}}
+.hero .wrap{position:relative;z-index:1;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:999px;padding:8px 18px 8px 10px;font-size:1.02rem;font-weight:600;color:var(--ink-2);margin-bottom:24px;backdrop-filter:blur(6px)}
+.badge i{width:20px;height:20px;border-radius:50%;background:var(--grad)}
+.hero h1{font-size:clamp(2.5rem,8.6vw,6rem)}
+.hero .sub{font-size:clamp(1.05rem,2.2vw,1.3rem);color:var(--ink-2);max-width:40ch;margin:18px auto 0}
+.prompt{margin:38px auto 0;width:100%;max-width:720px;background:#fff;border-radius:var(--r-lg);box-shadow:0 20px 60px rgba(60,40,140,.18),0 2px 6px rgba(0,0,0,.05);padding:20px 20px 16px;text-align:left}
+.prompt .ph{color:var(--muted);font-size:1.08rem;padding:2px 6px 14px;min-height:1.6em}
+.prompt .ph b{color:var(--ink);font-weight:600}
+.prompt .cursor{display:inline-block;width:2px;height:1.1em;background:var(--ink);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.prompt .row{display:flex;align-items:center;gap:8px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.chips a{border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:.88rem;color:var(--ink-2);text-decoration:none;font-weight:500;background:#fff;transition:background .15s,border-color .15s}
+.chips a:hover{background:var(--soft);border-color:var(--soft-2)}
+.go{flex:none;width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;text-decoration:none;font-size:1.2rem}
+.go:hover{transform:translateY(1px)}
+.hero-foot{margin-top:auto;padding:48px 0 28px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hero-foot span{background:rgba(255,255,255,.82);border-radius:999px;padding:7px 14px;font-size:.85rem;font-weight:600;color:var(--ink-2);backdrop-filter:blur(6px)}
+
+/* ---------- MODULES ---------- */
+.mod{padding:96px 0 40px}
+.mhead{display:flex;gap:20px;align-items:flex-end;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap}
+.mhead .l{max-width:680px}
+.mnum{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.85rem;color:var(--ink-2);background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 6px;margin-bottom:16px}
+.mnum b{width:22px;height:22px;border-radius:50%;background:var(--grad);color:#fff;font-size:.72rem;display:grid;place-items:center}
+.mhead h2{font-size:clamp(2rem,5vw,3.3rem)}
+.mhead p{color:var(--ink-2);font-size:1.08rem;margin:14px 0 0}
+.status{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 14px;font-weight:600;font-size:.88rem;white-space:nowrap}
+.status.off{background:var(--soft);color:var(--muted)}
+.status.off:before{content:"";width:8px;height:8px;border-radius:50%;background:#c4c2bc}
+.status.on{background:var(--grad);color:#fff;box-shadow:0 6px 20px rgba(168,85,247,.35);animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
+.status.on:before{content:"✓";font-weight:800}
+.status.on.low{background:var(--soft-2);color:var(--ink);box-shadow:none}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.progress{font-size:.9rem;color:var(--muted);margin-top:14px}
+.progress b{color:var(--ink)}
+.card{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--sh);padding:28px}
+.btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 16px;font-weight:600;font-size:.92rem}
+.btn:hover:not(:disabled){background:var(--soft)}
+.btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.dark:hover:not(:disabled){background:#000}
+.btn:disabled{opacity:.3;cursor:default}
+
+.seg{display:inline-flex;background:var(--soft);border-radius:14px;padding:4px;gap:2px}
+.seg button{border:0;background:transparent;border-radius:11px;padding:9px 18px;font-weight:600;color:var(--muted);transition:background .2s,color .2s}
+.seg button[aria-pressed=true]{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.seg button[aria-pressed=true][data-e=u]{color:var(--u)}
+.seg button[aria-pressed=true][data-e=r]{color:var(--r)}
+
+/* ---------- 1. HISTORY ---------- */
+#hchart{width:100%;height:auto;display:block}
+#hchart text{font-family:var(--sans);font-size:11px;fill:#a3a19b}
+#hchart .v{fill:var(--ink);font-weight:700;font-size:12px}
+.yearnow{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-top:18px}
+.yearnow .yy{font-weight:800;letter-spacing:-.04em;font-size:clamp(2.6rem,8vw,4.4rem);line-height:1}
+.yearnow .tt{font-weight:700;font-size:1.25rem;letter-spacing:-.02em}
+.yearnow .tag{font-size:.78rem;font-weight:700;border-radius:999px;padding:4px 10px}
+input.big{-webkit-appearance:none;appearance:none;width:100%;height:40px;background:transparent;margin:10px 0 0}
+input.big::-webkit-slider-runnable-track{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--u) 0%,#c84bb3 62%,var(--r) 75%,var(--r) 100%)}
+input.big::-moz-range-track{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--u) 0%,#c84bb3 62%,var(--r) 75%,var(--r) 100%)}
+input.big::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:#fff;border:0;margin-top:-11px;box-shadow:0 2px 10px rgba(0,0,0,.25),0 0 0 6px rgba(255,255,255,.6)}
+input.big::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:#fff;border:0;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.ticks{position:relative;height:26px}
+.ticks button{position:absolute;top:0;border:0;background:none;padding:4px 2px;font-size:.76rem;font-weight:600;color:#b5b3ad;white-space:nowrap;transform:translateX(-50%)}
+.ticks button:first-child{transform:none}
+.ticks button:last-child{transform:translateX(-100%)}
+.ticks button.seen{color:var(--ink-2)}
+.facts{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.facts li{background:var(--soft);border-radius:var(--r-md);padding:16px 18px;animation:rise .4s ease both}
+.facts li:nth-child(2){animation-delay:.05s}.facts li:nth-child(3){animation-delay:.1s}.facts li:nth-child(4){animation-delay:.15s}.facts li:nth-child(5){animation-delay:.2s}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hnav{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+
+/* ---------- 2. PROFILE ---------- */
+.prof{display:grid;grid-template-columns:280px 1fr;gap:18px;align-items:start;margin-top:18px}
+.qs{display:flex;flex-direction:column;gap:6px}
+.qs button{text-align:left;border:0;background:#fff;border-radius:var(--r-sm);padding:12px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center;font-weight:500;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:background .15s}
+.qs button:hover{background:var(--soft)}
+.qs button[aria-pressed=true]{background:var(--ink);color:#fff}
+.qs .ck{flex:none;width:20px;height:20px;border-radius:50%;background:var(--soft-2);display:grid;place-items:center;font-size:.7rem;font-weight:800;color:transparent}
+.qs .ck.on{background:var(--grad);color:#fff}
+.qs button[aria-pressed=true] .ck:not(.on){background:#444}
+.qs .dots{display:flex;gap:4px;flex:none}
+.qs .dots i{width:8px;height:8px;border-radius:50%;background:var(--soft-2)}
+.qs .dots i.u{background:var(--u)}.qs .dots i.r{background:var(--r)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.chat{background:#fff;border-radius:var(--r-lg);box-shadow:var(--sh);padding:22px;position:relative;overflow:hidden}
+.chat .bubble{max-width:100%}
+.chat:before{content:"";position:absolute;inset:0 0 auto 0;height:5px}
+.chat.u:before{background:linear-gradient(90deg,var(--u),#ff8a5b)}
+.chat.r:before{background:linear-gradient(90deg,var(--r),var(--v))}
+.who{display:flex;gap:12px;align-items:center;margin-bottom:20px}
+.ava{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:800;color:#fff;font-size:1.1rem}
+.chat.u .ava{background:linear-gradient(135deg,var(--u),#ff8a5b)}
+.chat.r .ava{background:linear-gradient(135deg,var(--r),var(--v))}
+.who b{display:block}
+.bubble-q{margin-left:auto;max-width:80%;width:fit-content;background:var(--ink);color:#fff;border-radius:18px 18px 4px 18px;padding:10px 16px;font-weight:600;margin-bottom:14px}
+.bubbles{display:flex;flex-direction:column;gap:8px}
+.bubble{max-width:88%;width:fit-content;border-radius:18px 18px 18px 4px;padding:11px 16px;animation:rise .35s ease both}
+.chat.u .bubble{background:var(--u-soft)}
+.chat.r .bubble{background:var(--r-soft)}
+.bubble:nth-child(2){animation-delay:.12s}.bubble:nth-child(3){animation-delay:.24s}
+.common{margin-top:14px;padding:14px 16px;border-radius:var(--r-sm);background:var(--v-soft);color:#4c1d95;font-size:.95rem}
+.common b{color:var(--v)}
+.hint{margin-top:16px;font-size:.88rem;color:var(--muted)}
+
+/* ---------- 3. MONEY ---------- */
+.money-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:28px}
+.budget .lbl{font-size:.9rem;color:var(--muted);font-weight:500}
+.budget .left{font-weight:800;letter-spacing:-.04em;font-size:clamp(2.4rem,6vw,3.6rem);line-height:1.05;margin:4px 0 6px}
+.bar{height:12px;border-radius:6px;background:var(--soft);overflow:hidden;margin:12px 0 8px}
+.bar i{display:block;height:100%;border-radius:6px;transition:width .25s}
+.presets{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0}
+.presets button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font-size:.85rem;font-weight:500;color:var(--ink-2)}
+.presets button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.shop{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.item{background:var(--soft);border-radius:var(--r-md);padding:14px 14px 12px;display:flex;flex-direction:column;gap:2px}
+.item .nm{font-weight:600}
+.item .pr{font-size:.85rem;color:var(--muted)}
+.item .ctl{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+.item .ctl button{width:36px;height:36px;border-radius:50%;border:0;background:#fff;font-weight:700;font-size:1.15rem;line-height:1;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.item .ctl button.plus{background:var(--ink);color:#fff}
+.item .ctl button:disabled{opacity:.25;cursor:default}
+.item .cnt{width:64px;font:800 1.2rem/1 var(--sans);letter-spacing:-.02em;text-align:center;border:1.5px solid var(--line);border-radius:10px;padding:7px 4px;background:#fff;color:var(--ink);-moz-appearance:textfield}
+.item .cnt:focus{outline:none;border-color:var(--v);box-shadow:0 0 0 3px var(--v-soft)}
+.item .cnt::-webkit-outer-spin-button,.item .cnt::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.money-act{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.insight{margin-top:16px;border-radius:var(--r-md);padding:18px 20px;background:var(--ink);color:#fff;display:none;position:relative;overflow:hidden}
+.insight:after{content:"";position:absolute;inset:auto -20% -60% 40%;height:120%;background:radial-gradient(closest-side,rgba(168,85,247,.55),transparent);pointer-events:none}
+.insight.show{display:block;animation:rise .3s ease}
+.insight b{color:#f9a8d4}
+.fine{font-size:.85rem;color:var(--muted);margin-top:18px}
+
+/* ---------- 4. QUIZ ---------- */
+.quiz{max-width:760px}
+.qprog{display:flex;gap:4px;margin-bottom:22px}
+.qprog i{flex:1;height:6px;border-radius:3px;background:var(--soft)}
+.qprog i.ok{background:var(--ok)}.qprog i.no{background:var(--u)}.qprog i.cur{background:var(--ink)}
+.qcard{font-weight:800;letter-spacing:-.025em;font-size:clamp(1.35rem,3.6vw,1.9rem);line-height:1.2;margin:8px 0 24px}
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.opt{border:2px solid transparent;background:var(--soft);border-radius:var(--r-sm);padding:16px 8px;font-weight:700;transition:background .15s}
+.opt:hover:not(:disabled){background:var(--soft-2)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft);color:#166534}
+.opt.wrong{border-color:var(--u);background:var(--u-soft);color:#be123c}
+.opt:disabled{cursor:default}
+.explain{margin-top:16px;padding:14px 16px;border-radius:var(--r-sm);background:var(--soft);display:none}
+.explain.show{display:block;animation:rise .25s ease}
+.qfoot{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px}
+.qres{text-align:center;padding:6px 0}
+.qres .big{font-weight:800;letter-spacing:-.05em;font-size:4.2rem;line-height:1}
+.qres .grade{display:inline-block;margin:16px 0;font-weight:700;color:#fff;background:var(--grad);border-radius:999px;padding:8px 18px}
+.qres .grade.fail{background:var(--soft);color:var(--ink-2)}
+
+/* ---------- 5. SORT ---------- */
+.legend3{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.legend3 span{font-size:.85rem;font-weight:600;padding:6px 12px;border-radius:999px}
+.k-keep{background:var(--ok-soft);color:#166534}
+.k-gone{background:var(--u-soft);color:#be123c}
+.k-back{background:var(--r-soft);color:#1e3aa8}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sc{background:#fff;border-radius:var(--r-md);box-shadow:var(--sh);padding:18px;display:flex;flex-direction:column;gap:12px;border:2px solid transparent;transition:border-color .2s}
+.sc .tx{font-weight:700;letter-spacing:-.01em}
+.sc .ch{display:flex;gap:6px}
+.sc .ch button{flex:1;border:0;background:var(--soft);border-radius:10px;padding:9px 4px;font-size:.84rem;font-weight:600}
+.sc .ch button:hover:not(:disabled){background:var(--soft-2)}
+.sc .ch button:disabled{cursor:default;opacity:.4}
+.sc .ch button.pick{opacity:1}
+.sc .why{font-size:.9rem;color:var(--ink-2);display:none}
+.sc.done .why{display:block;animation:rise .25s ease}
+.sc.ok{border-color:#86efac}.sc.bad{border-color:#fda4af}
+.verdict{margin-top:20px;display:none}
+.verdict.show{display:block;animation:rise .4s ease}
+.verdict .card{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.verdict .card:before{content:"";position:absolute;inset:-40% -10% auto auto;width:70%;height:140%;background:radial-gradient(closest-side,rgba(239,63,107,.45),transparent),radial-gradient(closest-side at 30% 60%,rgba(67,100,247,.45),transparent);pointer-events:none}
+.verdict h3{font-size:clamp(1.5rem,3.5vw,2.1rem);margin-bottom:14px;position:relative}
+.verdict p{position:relative;color:#e8e8e8}
+
+
+.k-ussr{background:var(--u-soft);color:#be123c}
+.k-both{background:var(--v-soft);color:#6b21a8}
+.k-now{background:var(--r-soft);color:#1e3aa8}
+.acc{display:none;margin-top:20px;background:var(--ink);color:#fff;border-radius:var(--r-lg);padding:28px;position:relative;overflow:hidden}
+.acc.show{display:block;animation:rise .4s ease}
+.acc:before{content:"";position:absolute;inset:-50% -20% auto 30%;height:150%;background:radial-gradient(closest-side,rgba(67,100,247,.5),transparent),radial-gradient(closest-side at 70% 40%,rgba(168,85,247,.45),transparent);pointer-events:none}
+.acc>*{position:relative}
+.acc h3{font-size:clamp(1.5rem,3.5vw,2.1rem);margin-bottom:18px}
+.acc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.acc-t{background:rgba(255,255,255,.08);border-radius:var(--r-md);padding:16px}
+.acc-t b{display:block;font-size:clamp(1.6rem,3.6vw,2.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:6px;background:linear-gradient(90deg,#9db1ff,#e9b5ff,#ffa3bd);-webkit-background-clip:text;background-clip:text;color:transparent}
+.acc-t span{font-size:.88rem;color:#d4d4d4}
+.acc p{color:#e8e8e8;margin:0}
+.verd{display:flex;gap:6px;flex-wrap:wrap}
+.verd span{font-size:.78rem;font-weight:700;border-radius:999px;padding:3px 10px}
+.verd .y{background:var(--ok-soft);color:#166534}.verd .n{background:var(--soft);color:var(--muted)}
+
+.opp-score{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;position:sticky;top:72px;z-index:5}
+.os{background:#fff;border-radius:var(--r-md);box-shadow:var(--sh);padding:14px 18px}
+.os-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-weight:600}
+.os-h b{font-size:1.5rem;font-weight:800;letter-spacing:-.03em}
+.os.u .os-h b{color:var(--u)}.os.r .os-h b{color:var(--r)}
+.os-bar{height:8px;border-radius:4px;background:var(--soft);overflow:hidden;margin-top:8px}
+.os-bar i{display:block;height:100%;width:0;border-radius:4px;transition:width .35s}
+.os.u .os-bar i{background:linear-gradient(90deg,#ef3f6b,#ff8a5b)}.os.r .os-bar i{background:linear-gradient(90deg,#4364f7,#a855f7)}
+.opps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.op{background:#fff;border-radius:var(--r-md);box-shadow:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.05);padding:16px 18px;text-align:left;border:0;display:flex;flex-direction:column;gap:10px;transition:transform .15s}
+.op:hover{transform:translateY(-2px)}
+.op .top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.op .tx{font-weight:700;letter-spacing:-.01em}
+.op .yn{display:flex;gap:6px;flex:none}
+.op .yn span{min-width:62px;text-align:center;font-size:.76rem;font-weight:700;border-radius:999px;padding:4px 8px;background:var(--soft);color:var(--muted)}
+.op.open .yn .y{background:var(--ok-soft);color:#166534}
+.op.open .yn .n{background:#f1f1f1;color:#a3a3a3;text-decoration:line-through}
+.op .why{display:none;font-size:.9rem;color:var(--ink-2)}
+.op.open .why{display:block;animation:rise .25s ease}
+.op .tap{font-size:.8rem;color:var(--muted);font-weight:600}
+.op.open .tap{display:none}
+.op.open{cursor:default}
+.op.open:hover{transform:none}
+/* ---------- ZACHETKA ---------- */
+.zsec{padding:96px 0 40px;position:relative;overflow:hidden}
+.zbook{max-width:760px;margin:0 auto;background:#fff;border-radius:var(--r-lg);box-shadow:0 20px 60px rgba(60,40,140,.14);padding:32px 28px;position:relative}
+.zbook h2{font-size:clamp(1.8rem,4.5vw,2.6rem);text-align:center}
+.zbook .sub{text-align:center;color:var(--muted);margin:8px 0 22px}
+.zrow{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;padding:14px 4px;border-top:1px solid var(--line)}
+.zrow .n{width:30px;height:30px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-weight:700;font-size:.85rem;color:var(--muted)}
+.zrow.done .n{background:var(--grad);color:#fff}
+.zrow a{color:var(--ink);text-decoration:none;font-weight:600}
+.zrow a:hover{text-decoration:underline}
+.zrow .m{font-weight:600;font-size:.9rem;color:#b5b3ad;text-align:right;white-space:nowrap}
+.zrow .m b{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.zrow.done .m b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.zavg{display:flex;justify-content:space-between;align-items:center;border-top:2px solid var(--ink);padding:16px 4px 0;margin-top:2px;font-weight:700}
+.zavg b{font-size:2rem;font-weight:800;letter-spacing:-.03em}
+.scale{font-size:.82rem;color:var(--muted);text-align:center;margin-top:14px}
+.zfinal{text-align:center;margin-top:20px;display:none}
+.zfinal.show{display:block;animation:rise .4s ease}
+.zfinal .big{display:inline-block;font-weight:800;letter-spacing:-.03em;font-size:1.6rem;margin:6px 0 8px}
+details.src{max-width:760px;margin:28px auto 0;font-size:.9rem;background:#fff;border-radius:var(--r-md);padding:16px 20px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+details.src summary{cursor:pointer;font-weight:600}
+details.src ol{padding-left:20px;margin:12px 0 0}
+details.src li{margin-bottom:6px;color:var(--ink-2)}
+details.src a{color:var(--r)}
+footer{padding:28px 16px 40px;text-align:center;color:var(--muted);font-size:.85rem}
+
+@media (max-width:900px){.nav .links{display:none}}
+@media (max-width:1060px) and (min-width:821px){.prof{grid-template-columns:220px 1fr}}
+@media (max-width:820px){
+  .opps{grid-template-columns:1fr}
+  .opp-score{top:64px;gap:8px}
+  .os{padding:10px 12px}
+  .os-h{font-size:.8rem;flex-direction:column;gap:0}
+  .os-h b{font-size:1.2rem}
+  .acc-grid{grid-template-columns:1fr 1fr}
+  .acc{padding:22px}
+  .pair{grid-template-columns:1fr}
+  .ticks button{font-size:.66rem}
+  .prof,.money-grid{grid-template-columns:1fr}
+  .qs{flex-direction:row;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none;margin:0 -16px;padding-left:16px;padding-right:16px}
+  .qs::-webkit-scrollbar{display:none}
+  .qs button{flex:none}
+  .facts,.cards{grid-template-columns:1fr}
+  .opts{grid-template-columns:1fr}
+  .mod,.zsec{padding:64px 0 24px}
+  .card{padding:20px;border-radius:22px}
+  .chat{padding:20px;min-height:0}
+  .hero{min-height:auto;padding-top:48px}
+  .badge{font-size:.86rem;padding:6px 12px 6px 7px;white-space:nowrap}
+  .badge i{width:16px;height:16px}
+  .prompt{padding:16px;border-radius:22px}
+  .hero-foot{padding-top:36px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Наверх"><i></i></a>
+    <div class="links">
+      <a href="#m1">История</a><a href="#m2">Анкета</a><a href="#m3">Стипендия</a><a href="#m4">Возможности</a><a href="#m5">Итоговый зачёт</a>
+    </div>
+    <a class="zbtn" href="#zachetka" id="zbtn"><span class="ring" style="--p:0"><b id="zcount">0</b></span>Зачётка</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="mesh" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="badge"><i></i>Студенчество в СССР и современной России</span>
+    <h1>Студент <span class="nowrap"><span class="g-u">1975</span> <span class="g-mid">→</span> <span class="g-r">2026</span></span></h1>
+    <p class="sub">Чем похожи и чем отличаются студенты двух эпох? Пройди сессию из пяти заданий и собери зачётку.</p>
+    <div class="prompt">
+      <div class="ph" id="typer"></div>
+      <div class="row">
+        <div class="chips">
+          <a href="#m1">История</a><a href="#m2">Анкета</a><a href="#m3">Стипендия</a><a href="#m4">Возможности</a><a href="#m5">Итоговый зачёт</a>
+        </div>
+        <a class="go" href="#m1" aria-label="Начать">→</a>
+      </div>
+    </div>
+    <div class="hero-foot"><span>5 заданий</span><span>≈ 15 минут</span><span>в любом порядке</span></div>
+  </div>
+</header>
+
+<!-- 1 -->
+<section class="mod" id="m1">
+  <div class="wrap">
+    <div class="mhead">
+      <div class="l"><div class="mnum"><b>1</b>Задание</div><h2>Сто лет студенчества</h2><p>Двигай ползунок от 1918 года к нашим дням и изучай, как менялась жизнь студентов: от рабфаков и стройотрядов до ЕГЭ и новой системы высшего образования. Каждая новая эпоха приносит баллы: изучишь все 9 — получишь 10.</p></div>
+      <span class="status off" id="st1">0 / 10</span>
+    </div>
+    <div class="card">
+      <svg id="hchart" role="img" aria-label="Численность студентов вузов по годам"></svg>
+      <div class="yearnow"><span class="yy" id="hyear"></span><span class="tt" id="htitle"></span><span class="tag" id="htag"></span></div>
+      <input type="range" class="big" id="hrange" min="0" max="8" step="1" value="0" aria-label="Эпоха">
+      <div class="ticks" id="hticks"></div>
+      <ul class="facts" id="hfacts"></ul>
+      <div class="hnav"><button class="btn" id="hprev">← Раньше</button><button class="btn dark" id="hnext">Позже →</button></div>
+    </div>
+    <div class="progress" id="p1"></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="mod" id="m2">
+  <div class="wrap">
+    <div class="mhead">
+      <div class="l"><div class="mnum"><b>2</b>Задание</div><h2>Анкета студента</h2><p>Задай вопрос — и сразу увидишь, что ответят Николай из 1975 года и Алина из 2026-го. Каждый новый вопрос — 2 балла, за 5 вопросов получишь 10.</p></div>
+      <span class="status off" id="st2">0 / 10</span>
+    </div>
+    <div class="prof">
+      <div class="qs" id="pqs"></div>
+      <div>
+        <div class="pair"><div class="chat u" id="chatU"></div><div class="chat r" id="chatR"></div></div>
+      </div>
+    </div>
+    <div class="progress" id="p2"></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="mod" id="m3">
+  <div class="wrap">
+    <div class="mhead">
+      <div class="l"><div class="mnum"><b>3</b>Задание</div><h2>Потрать стипендию</h2><p>Собери месячную корзину студента. Хватит ли стипендии? Нажимай «+» или вписывай количество с клавиатуры. Попробуй в обеих эпохах — и получишь 10 баллов.</p></div>
+      <span class="status off" id="st3">0 / 10</span>
+    </div>
+    <div class="card">
+      <div class="money-grid">
+        <div class="budget">
+          <div class="seg" role="group" aria-label="Эпоха" id="mseg"><button data-e="u" aria-pressed="true">СССР, 1975</button><button data-e="r" aria-pressed="false">Россия, 2026</button></div>
+          <div style="margin-top:22px" class="lbl">Осталось от стипендии</div>
+          <div class="left" id="mleft"></div>
+          <div class="bar"><i id="mbar"></i></div>
+          <div class="small muted" id="mof"></div>
+          <div class="presets" id="mpre"></div>
+          <div class="money-act"><button class="btn dark" id="mtyp">Собрать типичный месяц</button><button class="btn" id="mclr">Очистить</button></div>
+          <div class="insight" id="mins"></div>
+        </div>
+        <div class="shop" id="mshop"></div>
+      </div>
+      <p class="fine">Цены ориентировочные. Советские — государственные цены 1970–80-х (многие товары были в дефиците; плата за общежитие была символической, 1,5–3 руб. в месяц). Современные — средние по Москве, 2026 (общежитие — от 1 000 до 2 500 ₽ в месяц). Минимальная стипендия — федеральный минимум; многие вузы и регионы платят больше, есть повышенные и именные стипендии.</p>
+    </div>
+    <div class="progress" id="p3"></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="mod" id="m4">
+  <div class="wrap">
+    <div class="mhead">
+      <div class="l"><div class="mnum"><b>4</b>Задание</div><h2>Возможности студента</h2><p>Стипендия — это ещё не всё. Открывай карточки и смотри, что было доступно студенту 1975 года, а что — студенту 2026-го. Каждая открытая карточка — 1 балл.</p></div>
+      <span class="status off" id="st4">0 / 10</span>
+    </div>
+    <div class="opp-score">
+      <div class="os u"><div class="os-h"><span>Студент 1975</span><b id="osU">?</b></div><div class="os-bar"><i id="osUb"></i></div></div>
+      <div class="os r"><div class="os-h"><span>Студент 2026</span><b id="osR">?</b></div><div class="os-bar"><i id="osRb"></i></div></div>
+    </div>
+    <div class="opps" id="opps"></div>
+    <div class="acc" id="acc">
+      <h3>Высшее образование стало доступнее</h3>
+      <div class="acc-grid">
+        <div class="acc-t"><b>≈ 12%</b><span>россиян имели высшее образование в 1990 году — примерно каждый восьмой</span></div>
+        <div class="acc-t"><b>&gt; 31%</b><span>россиян 25–65 лет имеют высшее образование (2021), а среди 25–35-летних — более 41%</span></div>
+        <div class="acc-t"><b>в 5,5 раза</b><span>выросла доля населения с высшим образованием за полвека (Росстат)</span></div>
+        <div class="acc-t"><b>414 тыс.</b><span>иностранных студентов учатся в российских вузах (2026)</span></div>
+      </div>
+      <p>Советский студент жил на стипендию, но почти не выбирал: куда поступать, где работать, что читать и куда ехать. Сегодняшнему студенту живётся дороже, зато у него есть выбор вуза и города, профессии и работы, формата обучения, доступ к мировым знаниям через интернет, стажировки, гранты и возможность начать своё дело.</p>
+    </div>
+    <div class="progress" id="p4"></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="mod" id="m5">
+  <div class="wrap">
+    <div class="mhead">
+      <div class="l"><div class="mnum"><b>5</b>Итоговый зачёт</div><h2>Угадай эпоху</h2><p>Факты студенческой жизни: к какому времени они относятся — к СССР, к современной России или к обеим эпохам? 10 вопросов, каждый правильный ответ — 1 балл. В конце — итог: преемственность или разрыв?</p></div>
+      <span class="status off" id="st5">0 / 10</span>
+    </div>
+    <div class="card quiz" id="quiz"></div>
+    <div class="acc" id="qverdict">
+      <h3>Так преемственность или разрыв?</h3>
+      <p style="margin-bottom:12px">И то и другое. В 1990-е студенческая жизнь резко изменилась: исчезли распределение, комсомол и единая идеология, появились платное обучение и рынок труда. Но многое вернулось в новом виде — студотряды, целевое обучение, модель, близкая к специалитету, воспитательная роль вуза.</p>
+      <p>Современное студенчество — не копия советского и не его отрицание. Оно опирается на советский опыт и сохраняет то, что появилось позже: свободу выбора профессии, места работы и образа жизни.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ЗАЧЁТКА -->
+<section class="zsec" id="zachetka">
+  <div class="wrap">
+    <div class="zbook">
+      <h2>Зачётная книжка</h2>
+      <div class="sub">Сессия «Студенчество: СССР и Россия»</div>
+      <div id="ztab"></div>
+      <div class="zavg"><span>Средний балл</span><b id="zavg">—</b></div>
+      <div class="scale">10-балльная шкала: 8–10 — отлично, 6–7 — хорошо, 4–5 — удовлетворительно, 0–3 — пересдача</div>
+      <div class="zfinal" id="zfinal"><div class="big gtext">Сессия сдана!</div><p id="zfinaltext">Путь от рабфаков до новой системы высшего образования пройден.</p><button class="btn" id="zreset">Пройти заново</button></div>
+    </div>
+    <details class="src">
+      <summary>Источники</summary>
+      <ol>
+        <li>Федеральный закон от 29.12.2012 № 273-ФЗ «Об образовании в Российской Федерации».</li>
+        <li>Указ Президента РФ от 25.01.2005 № 76 «О Дне российского студенчества».</li>
+        <li>Указ Президента РФ от 12.05.2023 № 343 «О некоторых вопросах совершенствования системы высшего образования». — <a href="http://kremlin.ru/acts/news/71118" target="_blank" rel="noopener">kremlin.ru</a></li>
+        <li>Путин продлил пилотный проект по реформе высшего образования до 2030 года // Коммерсантъ. 2026. — <a href="https://www.kommersant.ru/doc/8364985" target="_blank" rel="noopener">kommersant.ru</a></li>
+        <li>Новая модель высшего образования России до 2030 года // Коммерсантъ. 2026. — <a href="https://www.kommersant.ru/doc/8763620" target="_blank" rel="noopener">kommersant.ru</a></li>
+        <li>В российских вузах учатся 4,66 млн студентов // Интерфакс. 30.06.2026. — <a href="https://www.interfax.ru/russia/1099194" target="_blank" rel="noopener">interfax.ru</a></li>
+        <li>Минимальные стипендии вузов выросли на 4% с 1 сентября 2026 // ППТ.ру. — <a href="https://ppt.ru/news/vysshee-obrazovanie/s-1-sentyabrya-2026-goda-vyrosli-razmery-stipendiy" target="_blank" rel="noopener">ppt.ru</a></li>
+        <li>Сколько получали студенты в СССР и сейчас // Финансы Mail. — <a href="https://finance.mail.ru/article/kakie-stipendii-byli-v-sssr-i-v-sovremennoj-rossii-69196622/" target="_blank" rel="noopener">finance.mail.ru</a></li>
+        <li>Средняя зарплата в России в мае 2026 года (по данным Росстата). — <a href="https://investfuture.ru/articles/srednyaya-zarplata-v-rossii-vyrosla-do-110-2-tys-rubley-v-mae-2026-goda-1183817819" target="_blank" rel="noopener">investfuture.ru</a></li>
+        <li>Цены на транспорт в Москве в 2026 году // Т—Ж. — <a href="https://t-j.ru/news/moscow-transport-2026/" target="_blank" rel="noopener">t-j.ru</a></li>
+        <li>Высшее образование // Большая советская энциклопедия. 3-е изд. М., 1969–1978.</li>
+        <li>Народное образование и культура в СССР: стат. сборник. М.: Финансы и статистика, 1989.</li>
+        <li>Росстат. Российский статистический ежегодник (раздел «Образование»).</li>
+        <li>Темп заметно вырос: как строят университетские кампусы // Деловой Петербург. 24.06.2026. — <a href="https://www.dp.ru/a/2026/06/24/temp-zametno-viros-kak" target="_blank" rel="noopener">dp.ru</a></li>
+        <li>К 2036 году в России откроется 40 университетских кампусов // Наука.рф. — <a href="https://xn--90aivcdt6dxbc.xn--p1ai/articles/news/k-2036-godu-v-rossii-otkroetsya-40-universitetskikh-kampusov/" target="_blank" rel="noopener">наука.рф</a></li>
+        <li>Гранты по программе «Приоритет-2030» получат 106 вузов // Наука.рф. — <a href="https://xn--90aivcdt6dxbc.xn--p1ai/articles/news/granty-po-programme-prioritet-2030-poluchat-106-vuzov/" target="_blank" rel="noopener">наука.рф</a></li>
+        <li>Количество россиян с высшим образованием превысило 31 процент // Российская газета. 15.06.2021. — <a href="https://rg.ru/2021/06/15/kolichestvo-rossiian-s-vysshim-obrazovaniem-prevysilo-31-procent.html" target="_blank" rel="noopener">rg.ru</a></li>
+        <li>Россия за 30 лет в цифрах // Настоящее Время. — <a href="https://www.currenttime.tv/a/russia-stats-30-years/31595612.html" target="_blank" rel="noopener">currenttime.tv</a></li>
+        <li>В 5,5 раз увеличилась за полвека доля населения с высшим образованием // Владимирстат (Росстат), 25.01.2021.</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<footer>Булаева Мария, Назирова Камилла · 26КНТ-6 · Основы российской государственности · 2026</footer>
+
+<script>
+/* ================= ДАННЫЕ ================= */
+const ERAS=[
+ {y:"1918",lab:"1918",title:"Двери открыты для всех",s:"u",span:[1917,1929],facts:[
+  "Декрет 2 августа 1918 года: в вуз может поступить любой желающий с 16 лет — без экзаменов, без аттестата и бесплатно.",
+  "С 1919 года работают рабфаки — рабочие факультеты, которые за 3–4 года готовили рабочих и крестьян к учёбе в вузе.",
+  "Классовый подход: преимущество у детей рабочих и крестьян, детям «бывших» поступить трудно.",
+  "Студенты живут бедно, часто коммунами, и совмещают учёбу с работой."]},
+ {y:"1930-е",lab:"1930",title:"Кадры решают всё",s:"u",span:[1930,1940],facts:[
+  "Индустриализации нужны инженеры: открываются десятки отраслевых институтов.",
+  "Складывается система распределения: выпускник работает там, куда направит государство.",
+  "К 1940 году в СССР около 812 тысяч студентов.",
+  "С октября 1940 года обучение в вузах становится платным: 300–500 рублей в год. Плату отменят только в 1956 году."]},
+ {y:"1941–45",lab:"1941",title:"Студенты на фронте",s:"u",span:[1941,1945],facts:[
+  "Тысячи студентов уходят добровольцами на фронт и в народное ополчение.",
+  "Многие вузы эвакуированы на восток, но продолжают выпускать врачей, инженеров, учителей.",
+  "Студентки становятся медсёстрами, связистками, работают на заводах и в госпиталях.",
+  "Численность студентов резко падает, но к концу 1940-х превышает довоенную."]},
+ {y:"1950–60-е",lab:"1956",title:"Оттепель",s:"u",span:[1946,1969],facts:[
+  "1956: обучение снова бесплатное.",
+  "1957: Всемирный фестиваль молодёжи и студентов в Москве — первая массовая встреча с иностранцами.",
+  "1959: студенты физфака МГУ едут на целину — рождаются студенческие отряды. Участие в них добровольное: работа тяжёлая, но хорошо оплачиваемая.",
+  "1960: открыт Университет дружбы народов. 1961: первый КВН.",
+  "1965: «Операция «Ы»» — Шурик становится символом советского студента."]},
+ {y:"1970–80-е",lab:"1975",title:"Массовое высшее",s:"u",span:[1970,1984],facts:[
+  "Студентов уже более 4,5 млн, а к 1980 году — 5,2 млн.",
+  "Стипендия 40 рублей, за отличную учёбу — 50. Обед в столовой — около 60 копеек, метро — 5 копеек.",
+  "После вуза — обязательное распределение на 3 года.",
+  "Комсомол, добровольные стройотряды, обязательная «картошка» в колхозе, походы и самодеятельность."]},
+ {y:"1985–91",lab:"1985",title:"Перестройка",s:"u",span:[1985,1991],facts:[
+  "Гласность: в вузах появляются дискуссионные клубы, неформальные объединения, студенческая пресса.",
+  "Студенты активно участвуют в общественной жизни страны.",
+  "Обязательные идеологические курсы теряют авторитет и постепенно отменяются.",
+  "1991: комсомол объявляет о самороспуске, вместе с СССР уходит советская модель студенчества."]},
+ {y:"1990-е",lab:"1992",title:"Время выживания",s:"r",span:[1992,1999],facts:[
+  "Закон «Об образовании» 1992 года открывает дорогу платному обучению и частным вузам.",
+  "Распределения больше нет — выпускник ищет работу сам.",
+  "Инфляция «съедает» стипендию, студенты массово подрабатывают.",
+  "Падает престиж инженерных и научных профессий, все хотят быть экономистами и юристами."]},
+ {y:"2000–10-е",lab:"2003",title:"Болонская эпоха",s:"r",span:[2000,2019],facts:[
+  "2003: Россия присоединяется к Болонскому процессу — бакалавриат и магистратура.",
+  "ЕГЭ: эксперимент с 2001 года, с 2009 — основной способ поступления.",
+  "2004: возрождены студенческие отряды, участие в них по-прежнему добровольное. 2005: 25 января — официальный День российского студенчества.",
+  "2008: рекорд — около 7,5 млн студентов."]},
+ {y:"2020-е",lab:"2026",title:"Собственный путь",s:"r",span:[2020,2026],facts:[
+  "2022: участие России в Болонском процессе приостановлено, курс на собственную систему.",
+  "С 2023 года во всех вузах изучают «Основы российской государственности».",
+  "Пилот новой системы: «базовое высшее» (4–6 лет) и «специализированное высшее» (1–3 года). С 2026 года — 17 вузов, проект продлён до 2030.",
+  "4,66 млн студентов, из них более 414 тысяч — иностранцы. Развивается целевое обучение."]}
+];
+const STUD=[{y:1940,v:812,s:"u"},{y:1950,v:1247,s:"u"},{y:1960,v:2396,s:"u"},{y:1970,v:4581,s:"u"},{y:1980,v:5235,s:"u"},{y:1990,v:5161,s:"u"},
+ {y:1995,v:2791,s:"r"},{y:2000,v:4741,s:"r"},{y:2008,v:7513,s:"r"},{y:2015,v:4766,s:"r"},{y:2020,v:4049,s:"r"},{y:2026,v:4660,s:"r"}];
+
+const PEOPLE={u:{name:"Николай, 19 лет",sub:"МВТУ им. Баумана · 2 курс · 1975",ini:"Н"},r:{name:"Алина, 19 лет",sub:"Федеральный университет · 2 курс · 2026",ini:"А"}};
+const QS=[
+ {q:"Как ты поступил?",qr:"Как ты поступила?",u:["Сдавал вступительные экзамены прямо в институте — математику, физику и сочинение. Подать документы можно было только в один вуз.","Учусь бесплатно, как и все. А вот мои родители в 1940-х ещё платили за учёбу.","Ребятам после армии и с рабочим стажем при поступлении давали льготы."],
+  r:["Сдала ЕГЭ и подала документы в пять вузов через Госуслуги, не выходя из дома.","Прошла на бюджет — повезло: в 2025 году на бюджет поступили около 40% первокурсников.","Остальные учатся платно, а на некоторые направления платный приём ограничен квотами."],
+  c:"Конкурс в престижные вузы и надежда, что диплом откроет дорогу в жизнь."},
+ {q:"На что ты живёшь?",u:["Стипендия 40 рублей — примерно четверть средней зарплаты. Если сдам на «отлично», будет 50.","Обед в столовой — копеек 60, метро — 5 копеек. На еду и кино хватает, на модные джинсы — уже нет.","Летом еду в стройотряд. Это добровольно, но туда даже конкурс: за сезон можно заработать больше, чем за год стипендий."],
+  r:["Минимальная стипендия — 2 296 ₽, около 2% средней зарплаты. Наш вуз платит чуть больше, но на жизнь всё равно не хватает.","Если хорошо учиться и участвовать в проектах, можно получать повышенную или именную стипендию.","Подрабатываю репетитором и дизайнером на фрилансе. Почти все однокурсники где-то работают."],
+  c:"Студенты всегда экономят и учатся распоряжаться деньгами."},
+ {q:"Где ты живёшь?",u:["В общежитии, в комнате на четверых. Плата символическая.","Кухня одна на этаж, телевизор — в красном уголке. Комендант строгий.","Зато все вместе: и готовим, и к сессии готовимся, и песни под гитару поём."],
+  r:["В общежитии, в комнате на двоих — место стоит от 1 000 до 2 500 ₽ в месяц.","Снимать квартиру в большом городе дорого: однушка — от 30 тысяч в месяц.","В общаге есть Wi-Fi, коворкинг и прачечная, а общаемся в чате корпуса."],
+  c:"Общежитие — школа самостоятельности и место, где появляются друзья на всю жизнь."},
+ {q:"Чем занят летом?",qr:"Чем занята летом?",u:["Записался в стройотряд — это добровольно, но попасть непросто, желающих много. Едем строить коровники и дома, а кто-то даже на БАМ.","А вот «картошка» обязательна: осенью весь курс вместо занятий едет помогать колхозу убирать урожай.","В свободное время — турпоходы, КВН, студенческий театр."],
+  r:["Записалась в студенческий отряд — тоже добровольно. Педагогический: еду вожатой в детский лагерь. Отряды возродили в 2004 году.","Ещё волонтёрю на фестивалях и форумах — это идёт в портфолио.","Летом — стажировка в компании, чтобы после вуза было проще найти работу."],
+  c:"Стройотряды и КВН пережили смену эпох — традиции, рождённые в СССР, живут и сейчас."},
+ {q:"Что после диплома?",u:["Распределение: куда направят, там и буду работать три года. Может, на завод в Сибири.","Плюс — работа гарантирована, часто дают общежитие или квартиру.","Минус — выбрать город и работу почти нельзя."],
+  r:["Ищу работу сама — рынок труда, резюме, собеседования.","Некоторые однокурсники учатся по целевому договору: работодатель оплачивает учёбу, а выпускник обязан у него отработать.","Сейчас обсуждают обязательную отработку для бюджетников, особенно медиков и учителей."],
+  c:"Государству важно, чтобы специалисты работали там, где они нужнее всего."},
+ {q:"Что изучаешь кроме специальности?",u:["История КПСС, марксистско-ленинская философия, политэкономия, научный коммунизм — обязательно для всех.","Почти все студенты — комсомольцы, у нас регулярные комсомольские собрания.","Военная кафедра: после выпуска стану лейтенантом запаса."],
+  r:["«Основы российской государственности» — их с 2023 года изучают во всех вузах. И историю России.","В вузе есть воспитательная работа, студсовет, молодёжные проекты.","Ребята учатся в военном учебном центре при университете."],
+  c:"Вуз воспитывает гражданина, а не только даёт профессию."},
+ {q:"Как устроена учёба?",u:["Учусь на инженера 5,5 лет — сразу получу полноценную квалификацию. Это называется специалитет.","Учебные планы одинаковые по всей стране.","Сильная математика и физика — советская инженерная школа славится на весь мир."],
+  r:["С 2003 года в России были бакалавриат (4 года) и магистратура (2 года).","Наш вуз переходит на новую систему: «базовое высшее» (4–6 лет) и «специализированное высшее» (1–3 года).","Много онлайн-курсов, проектной работы, расписание — в приложении."],
+  c:"Спор, что важнее — глубокая фундаментальная подготовка или гибкость, — продолжается до сих пор."},
+ {q:"Как оснащён твой вуз?",u:["Наш институт в новом корпусе: после войны в стране построили десятки вузовских зданий. Главное здание МГУ на Ленинских горах, открытое в 1953 году, знает весь мир.","Есть лаборатории и вычислительный центр, но ЭВМ одна на весь институт — машинное время расписано по минутам.","Конспекты пишем от руки, чертим на кульманах, считаем на логарифмической линейке. А под Новосибирском построили целый научный городок — Академгородок с университетом."],
+  r:["У нас Wi-Fi, электронная библиотека, проекторы в аудиториях и расписание в приложении.","Государство строит современные кампусы: учебные корпуса, общежития, лаборатории и коворкинги в одном месте. К 2030 году их должно быть 25, к 2036-му — 40.","Более 100 вузов получают гранты по программе «Приоритет-2030», а при университетах открываются передовые инженерные школы с оборудованием от промышленных компаний."],
+  c:"В обе эпохи государство вкладывается в строительство вузов: тогда — университеты и научные городки, сейчас — современные кампусы."},
+ {q:"Какие фильмы про студентов любишь?",u:["«Операция «Ы»» — Шурик просто легенда.","«Москва слезам не верит»: общежитие, вечернее отделение, мечты о будущем.","Ещё песни про стройотряды и анекдоты про сессию."],
+  r:["Сериал «Универ» — комедия про жизнь в общежитии.","Мемы про сессию, дедлайны и бесконечный кофе.","Смотрю блогеров, которые рассказывают про студенческую жизнь в разных вузах."],
+  c:"Сессия, общага и «Халява, приди!» — вечные сюжеты студенческого фольклора."}
+];
+
+const SHOP={
+ u:{budgets:[{v:40,l:"Обычная — 40 руб."},{v:50,l:"За отличную учёбу — 50 руб."}],wage:146,col:"var(--u)",
+    cur:v=>(Math.abs(v)<1&&v!==0?Math.round(v*100)+' коп.':(Math.round(v*100)/100).toLocaleString('ru-RU')+' руб.'),
+    items:[{n:"Место в общежитии, месяц",p:1.5,pl:"≈ 1,5 руб."},{n:"Обед в столовой",p:0.6,pl:"≈ 60 коп."},{n:"Поездка на метро / автобусе",p:0.05,pl:"5 коп."},{n:"Буханка хлеба",p:0.2,pl:"≈ 20 коп."},{n:"Билет в кино",p:0.5,pl:"≈ 50 коп."},{n:"Мороженое пломбир",p:0.2,pl:"≈ 20 коп."},{n:"Тетрадь, 12 листов",p:0.02,pl:"2 коп."}]},
+ r:{budgets:[{v:2296,l:"Минимум — 2 296 ₽"},{v:4000,l:"Крупный вуз ≈ 4 000 ₽"},{v:10900,l:"Повышенная ≈ 10 900 ₽"}],wage:110216,col:"var(--r)",
+    cur:v=>Math.round(v).toLocaleString('ru-RU')+' ₽',
+    items:[{n:"Место в общежитии, месяц",p:1500,pl:"≈ 1 500 ₽"},{n:"Обед в столовой",p:350,pl:"≈ 350 ₽"},{n:"Поездка на метро / автобусе",p:40,pl:"≈ 40 ₽"},{n:"Буханка хлеба",p:60,pl:"≈ 60 ₽"},{n:"Билет в кино",p:450,pl:"≈ 450 ₽"},{n:"Мороженое пломбир",p:100,pl:"≈ 100 ₽"},{n:"Тетрадь, 12 листов",p:20,pl:"≈ 20 ₽"}]}
+};
+const TYPICAL=[1,22,44,8,2,4,4];
+
+const QUIZ=[
+ {q:"Выпускник обязан три года отработать там, куда его направят.",a:"u",e:"Обязательное распределение существовало в СССР и исчезло в начале 1990-х. Работа была гарантирована, но выбрать её было почти нельзя. Сегодня похожий механизм есть только в целевом обучении — по договору."},
+ {q:"Вместо бакалавриата — «базовое высшее образование».",a:"r",e:"Это новая система уровней, которую с 2023 года проверяют в пилотных вузах. С 2026 года в проекте 17 вузов."},
+ {q:"За обучение в вузе нужно платить.",a:"b",e:"Подвох! В СССР с 1940 по 1956 год обучение в вузах было платным — 300–500 рублей в год. Сегодня платно учится большая часть студентов, но около 40% первокурсников поступают на бюджет."},
+ {q:"Осенью весь курс вместо занятий обязательно едет в колхоз на уборку урожая.",a:"u",e:"Это знаменитая «картошка» — обязательная помощь сельскому хозяйству. Не путать со стройотрядами: туда ездили добровольно и за зарплату, а сегодня студенческие отряды тоже добровольные."},
+ {q:"В Москве учатся тысячи студентов из Азии, Африки и Латинской Америки.",a:"b",e:"Университет дружбы народов открылся в 1960 году. Сегодня в российских вузах учатся более 414 тысяч иностранцев."},
+ {q:"Поступить в вуз можно без вступительных экзаменов и даже без аттестата.",a:"u",e:"Так было по декрету 2 августа 1918 года: в вуз принимали всех желающих с 16 лет. Сегодня без ЕГЭ или вступительных испытаний не поступить."},
+ {q:"Почти все студенты состоят в одной молодёжной организации.",a:"u",e:"В СССР почти все студенты были комсомольцами. Сегодня молодёжных организаций много, и членство в них добровольное."},
+ {q:"Команды вузов соревнуются в КВН.",a:"b",e:"КВН появился на телевидении в 1961 году, в 1972-м передачу закрыли, а в 1986-м вернули. Сегодня студенческие команды КВН есть почти в каждом вузе."},
+ {q:"За отличную учёбу стипендию повышают.",a:"b",e:"В СССР отличник получал 50 рублей вместо 40. Сегодня тоже есть повышенные стипендии — за учёбу, науку, спорт и общественную работу."},
+ {q:"Выпускник получает диплом бакалавра.",a:"r",e:"Степень бакалавра появилась в России вместе с Болонской системой — с 2003 года. В СССР выпускники получали диплом специалиста: инженера, врача, учителя."}
+];
+
+const OPPS=[
+ {t:"Подать документы сразу в несколько вузов в разных городах",u:0,r:1,e:"В СССР за год можно было поступать только в один вуз и ехать на экзамены лично. Сейчас по результатам ЕГЭ — до 5 вузов, в том числе онлайн."},
+ {t:"Поступить на равных условиях — только по результатам экзаменов, без знакомств",u:0,r:1,e:"В СССР экзамены, часто устные, принимали преподаватели самого вуза, и многое зависело от экзаменатора — бывал и «блат». Сегодня работы ЕГЭ проверяют анонимно независимые эксперты, а списки поступающих с баллами публикуются открыто. Льготы для отдельных категорий есть, но они прописаны в законе."},
+ {t:"Учиться в вузе бесплатно",u:1,r:1,e:"В СССР обучение было бесплатным (кроме 1940–1956 годов). Сегодня бесплатно учатся студенты на бюджетных местах — около 40% первокурсников."},
+ {t:"Самому выбрать, где работать после диплома",u:0,r:1,e:"Советского выпускника распределяли на 3 года. Сегодня он сам выбирает работодателя, город и даже страну."},
+ {t:"Поехать учиться или на стажировку за границу",u:0,r:1,e:"В СССР по обмену выезжали единицы — по строгому отбору и в основном в соцстраны. Сегодня есть программы обмена, стажировки и совместные программы с зарубежными вузами."},
+ {t:"Пройти онлайн-курс ведущего университета из дома",u:0,r:1,e:"Онлайн-обучение появилось вместе с интернетом. Сегодня тысячи курсов ведущих вузов доступны бесплатно, а часть можно засчитать в своём вузе."},
+ {t:"За минуту найти нужную книгу или научную статью",u:0,r:1,e:"Советский студент стоял в очереди в библиотеке, а часть литературы хранилась в спецхранилищах. Сегодня — электронные библиотеки и научные базы."},
+ {t:"Заниматься наукой с первого курса",u:1,r:1,e:"Студенческие научные общества работали в советских вузах и есть сейчас. Сегодня к ним добавились гранты, научные конкурсы и стартап-студии."},
+ {t:"Получить грант на собственный проект",u:0,r:1,e:"В СССР деньги на науку и проекты распределялись по государственным планам, своих грантов у студентов не было. Сегодня студент может выиграть грант — например, на конкурсах Росмолодёжи или по программе «Студенческий стартап»."},
+ {t:"Открыть своё дело или законно работать на себя",u:0,r:1,e:"Частное предпринимательство в СССР было запрещено, кооперативы разрешили только в 1988 году. Сегодня студент может стать самозанятым или открыть стартап."}
+];
+
+const LAB={u:"СССР",r:"Россия",b:"Обе эпохи"};
+
+
+/* ================= ПЕЧАТАЮЩАЯСЯ СТРОКА ================= */
+(function(){
+  const el=document.getElementById('typer'),lines=["Сколько стоил обед в студенческой столовой в 1975 году?","Что такое распределение и куда оно исчезло?","Хватит ли сегодня стипендии на месяц жизни?","Почему стройотряды вернулись?"];
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=lines[0];return}
+  let li=0,ci=0,del=false;
+  (function tick(){const s=lines[li];ci+=del?-1:1;el.innerHTML=s.slice(0,ci)+'<span class="cursor"></span>';
+    let d=del?22:45;if(!del&&ci===s.length){del=true;d=1800}else if(del&&ci===0){del=false;li=(li+1)%lines.length;d=350}
+    setTimeout(tick,d)})();
+})();
+
+/* ================= ЗАЧЁТКА ================= */
+const SUBJ=["Сто лет студенчества","Анкета студента","Потрать стипендию","Возможности студента","Угадай эпоху"];
+const marks={};
+const word=g=>g>=8?'отлично':g>=6?'хорошо':g>=4?'удовл.':'пересдача';
+function setMark(id,g){
+  const first=marks[id]==null;marks[id]=g;
+  const st=document.getElementById('st'+id);st.textContent=g+' / 10';st.className='status on'+(g<6?' low':'');
+  renderZ();
+  if(first){const b=document.getElementById('zbtn');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')}
+}
+function renderZ(){
+  const n=Object.keys(marks).length;
+  document.getElementById('zcount').textContent=n;
+  document.querySelector('.zbtn .ring').style.setProperty('--p',Math.round(n/SUBJ.length*100));
+  document.getElementById('ztab').innerHTML=SUBJ.map((s,i)=>{const g=marks[i+1];return `<div class="zrow ${g!=null?'done':''}"><span class="n">${i+1}</span><a href="#m${i+1}">${s}</a><span class="m">${g!=null?`<b>${g}</b> · ${word(g)}`:'—'}</span></div>`}).join('');
+  const vals=Object.values(marks),avg=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null;
+  document.getElementById('zavg').textContent=avg==null?'—':avg.toFixed(1).replace('.',',').replace(',0','');
+  document.getElementById('zfinal').classList.toggle('show',n===SUBJ.length);
+  if(n===SUBJ.length)document.getElementById('zfinaltext').textContent=`Средний балл — ${avg.toFixed(1).replace('.',',').replace(',0','')} из 10. Путь от рабфаков до новой системы высшего образования пройден.`;
+}
+document.getElementById('zreset').onclick=()=>{location.hash='';location.reload()};
+renderZ();
+
+/* ================= 1. ИСТОРИЯ ================= */
+(function(){
+  const svg=document.getElementById('hchart'),range=document.getElementById('hrange'),ticks=document.getElementById('hticks');
+  const seen=new Set();let cur=0,started=false;
+  const SHORT=["1918","30-е","41–45","50–60","70–80","85–91","90-е","00–10","20-е"];
+  ERAS.forEach((e,i)=>{const b=document.createElement('button');b.onclick=()=>go(i,true);const f=i/(ERAS.length-1);b.style.left=i===0?'0':i===ERAS.length-1?'100%':`calc(15px + (100% - 30px) * ${f})`;ticks.appendChild(b)});
+  function labels(){const sm=ticks.clientWidth<600;[...ticks.children].forEach((b,i)=>{b.textContent=sm?SHORT[i]:ERAS[i].y;b.title=ERAS[i].y})}
+  labels();
+  function draw(){
+    const W=Math.max(280,svg.parentNode.clientWidth-56),narrow=W<560,H=narrow?150:190;
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML='';
+    const ns='http://www.w3.org/2000/svg',el=(t,a,txt)=>{const x=document.createElementNS(ns,t);for(const k in a)x.setAttribute(k,a[k]);if(txt!=null)x.textContent=txt;return x};
+    const top=34,bot=20,ih=H-top-bot,n=STUD.length,slot=W/n,bw=Math.min(36,slot-(narrow?4:12)),max=7600,sp=ERAS[cur].span;
+    svg.appendChild(el('text',{x:0,y:12},'Студентов в вузах, млн'));
+    STUD.forEach((d,i)=>{
+      const on=d.y>=sp[0]&&d.y<=sp[1],h=ih*d.v/max,x=i*slot+(slot-bw)/2,y=top+ih-h;
+      svg.appendChild(el('rect',{x,y,width:bw,height:h,rx:5,fill:d.s==='u'?'#ef3f6b':'#4364f7',opacity:on?1:.16,style:'transition:opacity .35s'}));
+      svg.appendChild(el('text',{x:x+bw/2,y:H-4,'text-anchor':'middle',style:on?'fill:#141414;font-weight:700':''},narrow?"’"+String(d.y).slice(2):d.y));
+      if(on)svg.appendChild(el('text',{x:x+bw/2,y:y-7,'text-anchor':'middle',class:'v'},(d.v/1000).toFixed(1).replace('.',',')));
+    });
+  }
+  function go(i,user){
+    cur=Math.max(0,Math.min(ERAS.length-1,i));range.value=cur;
+    if(user){if(!started){started=true;seen.add(0)}seen.add(cur)}
+    const e=ERAS[cur],col=e.s==='u'?'var(--u)':'var(--r)';
+    const yy=document.getElementById('hyear');yy.textContent=e.y;yy.style.color=col;
+    document.getElementById('htitle').textContent=e.title;
+    const tg=document.getElementById('htag');tg.textContent=e.s==='u'?'СССР':'Россия';tg.style.background=e.s==='u'?'var(--u-soft)':'var(--r-soft)';tg.style.color=col;
+    document.getElementById('hfacts').innerHTML=e.facts.map(f=>`<li>${f}</li>`).join('');
+    [...ticks.children].forEach((b,j)=>{b.classList.toggle('seen',seen.has(j));b.style.color=j===cur?(ERAS[j].s==='u'?'var(--u)':'var(--r)'):''});
+    document.getElementById('hprev').disabled=cur===0;document.getElementById('hnext').disabled=cur===ERAS.length-1;
+    const pts=Math.round(seen.size/ERAS.length*10);
+    document.getElementById('p1').innerHTML=`Изучено эпох: <b>${seen.size} из ${ERAS.length}</b> · баллов: <b>${pts} из 10</b>`;
+    draw();
+    if(pts>0&&pts!==marks[1])setMark(1,pts);
+  }
+  range.addEventListener('input',()=>go(+range.value,true));
+  document.getElementById('hprev').onclick=()=>go(cur-1,true);
+  document.getElementById('hnext').onclick=()=>go(cur+1,true);
+  let t;window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{draw();labels()},150)});
+  go(0);
+})();
+
+/* ================= 2. АНКЕТА ================= */
+(function(){
+  let qi=0,started=false;const seen=new Set();
+  const qs=document.getElementById('pqs');
+  QS.forEach((q,i)=>{const b=document.createElement('button');b.innerHTML=`<span>${q.q}</span><span class="ck">✓</span>`;b.onclick=()=>{qi=i;started=true;render();if(qs.scrollWidth>qs.clientWidth)qs.scrollTo({left:b.offsetLeft-qs.clientWidth/2+b.offsetWidth/2,behavior:'smooth'})};qs.appendChild(b)});
+  function chat(era){
+    const q=QS[qi],p=PEOPLE[era],asked=era==='r'&&q.qr?q.qr:q.q;
+    return `<div class="who"><div class="ava">${p.ini}</div><div><b>${p.name}</b><span class="small muted">${p.sub}</span></div></div>
+      <div class="bubble-q">${asked}</div>
+      <div class="bubbles">${q[era].map(x=>`<div class="bubble">${x}</div>`).join('')}</div>`;
+  }
+  function render(){
+    if(started)seen.add(qi);
+    [...qs.children].forEach((b,i)=>{b.setAttribute('aria-pressed',i===qi);b.querySelector('.ck').classList.toggle('on',seen.has(i))});
+    document.getElementById('chatU').innerHTML=chat('u');
+    document.getElementById('chatR').innerHTML=chat('r');
+    const pts=Math.min(10,seen.size*2);
+    document.getElementById('p2').innerHTML=`Задано вопросов: <b>${seen.size} из ${QS.length}</b> · баллов: <b>${pts} из 10</b>`;
+    if(pts>0&&pts!==marks[2])setMark(2,pts);
+  }
+  render();
+})();
+
+/* ================= 3. СТИПЕНДИЯ ================= */
+(function(){
+  const N=SHOP.u.items.length,zero=()=>Array(N).fill(0);
+  let era='u';const st={u:{b:40,c:zero(),used:false,ins:''},r:{b:2296,c:zero(),used:false,ins:''}};
+  const seg=document.getElementById('mseg'),shop=document.getElementById('mshop');
+  seg.querySelectorAll('button').forEach(b=>b.onclick=()=>{era=b.dataset.e;build()});
+  const spent=e=>SHOP[e].items.reduce((s,it,i)=>s+it.p*st[e].c[i],0);
+  function build(){
+    const S=SHOP[era],s=st[era];
+    seg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.e===era));
+    document.getElementById('mpre').innerHTML=S.budgets.map(b=>`<button class="${b.v===s.b?'on':''}" data-v="${b.v}">${b.l}</button>`).join('');
+    document.querySelectorAll('#mpre button').forEach(b=>b.onclick=()=>{s.b=+b.dataset.v;s.ins='';build()});
+    shop.innerHTML=S.items.map((it,i)=>`<div class="item" data-i="${i}"><div class="nm">${it.n}</div><div class="pr">${it.pl}</div>
+      <div class="ctl"><button class="minus" aria-label="Убрать">−</button><input class="cnt" type="number" inputmode="numeric" min="0" max="999" step="1" value="${s.c[i]}" aria-label="${it.n}, количество"><button class="plus" aria-label="Добавить">+</button></div></div>`).join('');
+    shop.querySelectorAll('.item').forEach(el=>{const i=+el.dataset.i,inp=el.querySelector('.cnt');
+      el.querySelector('.plus').onclick=()=>{s.c[i]++;s.used=true;s.ins='';update()};
+      el.querySelector('.minus').onclick=()=>{s.c[i]=Math.max(0,s.c[i]-1);s.ins='';update()};
+      inp.addEventListener('input',()=>{let v=parseInt(inp.value,10);if(isNaN(v)||v<0)v=0;if(v>999)v=999;s.c[i]=v;if(v>0)s.used=true;s.ins='';update()});
+      inp.addEventListener('blur',()=>{inp.value=s.c[i]});
+      inp.addEventListener('focus',()=>inp.select());
+    });
+    update();
+  }
+  function update(){
+    const S=SHOP[era],s=st[era],sp=spent(era),left=s.b-sp,over=left<-1e-9;
+    const L=document.getElementById('mleft');L.textContent=S.cur(left);L.style.color=over?'var(--u)':'var(--ink)';
+    document.getElementById('mof').innerHTML=`Потрачено ${S.cur(sp)} из ${S.cur(s.b)} · стипендия ≈ ${(s.b/S.wage*100).toFixed(s.b/S.wage<.1?1:0).replace('.',',')}% средней зарплаты`;
+    const bar=document.getElementById('mbar');bar.style.width=Math.min(100,sp/s.b*100)+'%';bar.style.background=over?'var(--u)':(era==='u'?'linear-gradient(90deg,#ef3f6b,#ff8a5b)':'linear-gradient(90deg,#4364f7,#a855f7)');
+    shop.querySelectorAll('.item').forEach(el=>{const i=+el.dataset.i,it=S.items[i],inp=el.querySelector('.cnt');
+      el.querySelector('.minus').disabled=!s.c[i];
+      el.querySelector('.plus').disabled=left-it.p<-1e-9;
+      if(document.activeElement!==inp)inp.value=s.c[i];});
+    const ins=document.getElementById('mins');ins.innerHTML=s.ins;ins.classList.toggle('show',!!s.ins);
+    document.getElementById('p3').innerHTML=`Попробовано эпох: <b>${(st.u.used?1:0)+(st.r.used?1:0)} из 2</b>`;
+    if(st.u.used&&st.r.used&&marks[3]==null)setMark(3,10);
+  }
+  document.getElementById('mclr').onclick=()=>{st[era].c=zero();st[era].ins='';update()};
+  document.getElementById('mtyp').onclick=()=>{
+    const S=SHOP[era],s=st[era];s.c=[...TYPICAL];s.used=true;
+    const cost=spent(era),pct=Math.round(cost/s.b*100),left=s.b-cost;
+    s.ins=`Типичный учебный месяц — общежитие, 22 обеда, 44 поездки, 8 буханок хлеба, 2 похода в кино, 4 мороженых и 4 тетради — стоит <b>${S.cur(cost)}</b>, то есть <b>${pct}% стипендии</b>. `+
+      (left>=0?`После этого остаётся ещё <b>${S.cur(left)}</b>.`+(era==='u'?' Стипендии советскому студенту хватало на основные расходы.':''):'Стипендии не хватает даже на основные расходы — поэтому большинство студентов сегодня подрабатывают или живут за счёт семьи.');
+    update();
+  };
+  build();
+})();
+
+/* ================= 4. ВОЗМОЖНОСТИ ================= */
+(function(){
+  const box=document.getElementById('opps'),open=new Set();
+  box.innerHTML=OPPS.map((o,i)=>`<button class="op" data-i="${i}" aria-expanded="false"><div class="top"><div class="tx">${o.t}</div></div>
+    <div class="yn"><span class="${o.u?'y':'n'}" data-l="1975">1975 · ?</span><span class="${o.r?'y':'n'}" data-l="2026">2026 · ?</span></div>
+    <div class="tap">Нажми, чтобы узнать →</div><div class="why">${o.e}</div></button>`).join('');
+  box.querySelectorAll('.op').forEach(el=>el.onclick=()=>{
+    const i=+el.dataset.i;if(open.has(i))return;open.add(i);
+    el.classList.add('open');el.setAttribute('aria-expanded','true');
+    el.querySelectorAll('.yn span').forEach(sp=>sp.textContent=sp.dataset.l+(sp.classList.contains('y')?' · да':' · нет'));
+    upd();});
+  function upd(){
+    const U=[...open].filter(i=>OPPS[i].u).length,R=[...open].filter(i=>OPPS[i].r).length,n=open.size;
+    document.getElementById('osU').textContent=n?`${U} из ${n}`:'?';
+    document.getElementById('osR').textContent=n?`${R} из ${n}`:'?';
+    document.getElementById('osUb').style.width=(U/OPPS.length*100)+'%';
+    document.getElementById('osRb').style.width=(R/OPPS.length*100)+'%';
+    document.getElementById('p4').innerHTML=`Открыто карточек: <b>${n} из ${OPPS.length}</b> · баллов: <b>${n} из 10</b>`;
+    if(n===OPPS.length)document.getElementById('acc').classList.add('show');
+    if(n>0&&n!==marks[4])setMark(4,n);
+  }
+  upd();
+})();
+
+/* ================= 5. ВИКТОРИНА ================= */
+(function(){
+  const box=document.getElementById('quiz');let qi=0,score=0,res=[],best=-1;
+  
+  function render(){
+    if(qi>=QUIZ.length){
+      const g=score>=4;
+      box.innerHTML=`<div class="qprog">${res.map(r=>`<i class="${r?'ok':'no'}"></i>`).join('')}</div>
+        <div class="qres"><div class="big">${score}/${QUIZ.length}</div>
+        <div class="grade ${g?'':'fail'}">Оценка: ${score} — ${word(score)}</div>
+        <p>${g?(score>best?'Оценка поставлена в зачётку.':'В зачётке остаётся лучшая оценка — '+best+'.'):'Нужно минимум 4 балла. Загляни в «Сто лет студенчества» и попробуй ещё раз.'}</p>
+        <button class="btn dark" id="qagain">${g?'Пройти ещё раз':'На пересдачу'}</button></div>`;
+      document.getElementById('qverdict').classList.add('show');
+      if(g&&score>best){best=score;setMark(5,score)}
+      document.getElementById('qagain').onclick=()=>{qi=0;score=0;res=[];document.getElementById('qverdict').classList.remove('show');render()};return;
+    }
+    const q=QUIZ[qi];
+    box.innerHTML=`<div class="qprog">${QUIZ.map((_,j)=>`<i class="${j<qi?(res[j]?'ok':'no'):j===qi?'cur':''}"></i>`).join('')}</div>
+      <div class="small muted">Вопрос ${qi+1} из ${QUIZ.length}</div>
+      <div class="qcard">${q.q}</div>
+      <div class="opts">${['u','r','b'].map(k=>`<button class="opt" data-k="${k}">${LAB[k]}</button>`).join('')}</div>
+      <div class="explain" id="qexp"></div>
+      <div class="qfoot"><span class="small muted" id="qsc">Верно: ${score}</span><button class="btn dark" id="qnext" style="visibility:hidden">${qi===QUIZ.length-1?'Результат':'Дальше →'}</button></div>`;
+    box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+      const ok=b.dataset.k===q.a;if(ok)score++;res.push(ok);
+      box.querySelectorAll('.opt').forEach(o=>{o.disabled=true;if(o.dataset.k===q.a)o.classList.add('right')});
+      if(!ok)b.classList.add('wrong');
+      const ex=document.getElementById('qexp');ex.innerHTML=`<b>${ok?'Верно!':'Не совсем.'}</b> Ответ: ${LAB[q.a]}. ${q.e}`;ex.classList.add('show');
+      document.getElementById('qsc').textContent='Верно: '+score;
+      document.getElementById('qnext').style.visibility='visible';
+    });
+    document.getElementById('qnext').onclick=()=>{qi++;render()};
+  }
+  render();
+})();
+
+</script>
+</body>
+</html>
